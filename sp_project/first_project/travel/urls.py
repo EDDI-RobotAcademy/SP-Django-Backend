@@ -8,4 +8,5 @@ router.register(r'travel', TravelView)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('/list', TravelView.as_view({'get': 'list'}), name='travel-list')
 ]
