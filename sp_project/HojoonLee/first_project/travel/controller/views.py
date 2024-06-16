@@ -19,22 +19,23 @@ class TravelView(viewsets.ViewSet):
         try:
             data = request.data
 
-            # productImage = request.FILES.get('productImage')
+            travelImage = request.FILES.get('travelImage')
             travelName = data.get('travelName')
-            travelLocation = data.get('traveLocation')
+            travelLocation = data.get('travelLocation')
             travelProperty = data.get('travelProperty')
             travelContent = data.get('travelContent')
             travelPrice = data.get('travelPrice')
 
 
-            if not all([productImage, productName, productPrice, productDescription]):
+            if not all([travelName, travelLocation, travelProperty,
+                        travelContent, travelPrice, travelImage]):
                 return Response({ 'error': '모든 내용을 채워주세요!' },
                                 status=status.HTTP_400_BAD_REQUEST)
 
-            self.productService.createProduct(productName, productPrice,
-                                              productDescription, productImage)
+            self.travelService.createTravel(travelName, travelLocation, travelPrice,
+                                              travelProperty, travelContent, travelImage)
 
-            serializer = ProductSerializer(data=request.data)
+            serializer = TravelSerializer(data=request.data)
             return Response(status=status.HTTP_200_OK)
 
         except Exception as e:
