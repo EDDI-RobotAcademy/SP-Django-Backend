@@ -20,3 +20,9 @@ class TravelServiceImpl(TravelService):
 
     def list(self):
         return self.__travelRepository.list()
+
+    def createTravel(self, travelName, travelPrice, travelContent,
+                     travelLocation, travelProperty, travelImage):
+
+        return self.__travelRepository.create(travelName, travelPrice, travelContent,
+                     travelLocation, travelProperty, travelImage)
