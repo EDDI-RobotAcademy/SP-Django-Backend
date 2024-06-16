@@ -7,6 +7,6 @@ from travel_board.entity.models import TravelBoard
 class TravelBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = TravelBoard
-        fields = ['travelId', 'travelName', 'travelPrice',
-                  'travelLocation', 'travelProperty', 'travelContent', 'travelImage']
+        fields = ['boardId', 'title', 'writer', 'point', 'review']
+        read_only_fields = ['regDate', 'updDate']
 

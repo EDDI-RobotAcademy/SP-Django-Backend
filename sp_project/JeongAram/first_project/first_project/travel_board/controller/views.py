@@ -18,4 +18,11 @@ class TravelBoardView(viewsets.ViewSet):
         serializer = TravelBoardSerializer(travelBoardList, many=True)
         return Response(serializer.data)
 
+    def create(self, request):
+        serializer = TravelBoardSerializer(data=request.data)
+        if serializer.is_valid():
+            travel_board = self.travelBoardService.createTravelBoard(serializer.validated_data)
+            return Response(TravelBoardSerializer(travel_board).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 

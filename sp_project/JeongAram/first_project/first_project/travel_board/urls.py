@@ -4,10 +4,10 @@ from rest_framework.routers import DefaultRouter
 from travel_board.controller.views import (TravelBoardView)
 
 router = DefaultRouter()
-router.register(r'travel', TravelBoardView)
+router.register(r'travelBoard', TravelBoardView)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('list/', TravelBoardView.as_view({'get': 'list'}), name='travel-list'),
-
+    path('list/', TravelBoardView.as_view({'get': 'list'}), name='travel-board-list'),
+    path('register', TravelBoardView.as_view({'post': 'create'}), name='travel-board-register'),
 ]

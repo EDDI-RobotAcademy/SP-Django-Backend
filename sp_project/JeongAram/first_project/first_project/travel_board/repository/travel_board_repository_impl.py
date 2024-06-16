@@ -15,3 +15,8 @@ class TravelBoardRepositoryImpl(TravelBoardRepository):
 
     def list(self):
         return TravelBoard.objects.all().order_by('-regDate')
+
+    def create(self, travelBoardData):
+        travel_board = TravelBoard(**travelBoardData)
+        travel_board.save()
+        return travel_board
