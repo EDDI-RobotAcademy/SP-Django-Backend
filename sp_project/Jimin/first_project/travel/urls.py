@@ -8,5 +8,6 @@ router.register(r'travel', TravelView)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('/list', TravelView.as_view({'get': 'list'}), name='travel-list')
+    path('list/', TravelView.as_view({'get': 'list'}), name='travel-list'),
+    path('register', TravelView.as_view({'post': 'register'}), name='travel-register')
 ]
