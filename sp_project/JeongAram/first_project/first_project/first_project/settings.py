@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "travel",
-    "board",
+    "travel_board",
+
 ]
 
 MIDDLEWARE = [
