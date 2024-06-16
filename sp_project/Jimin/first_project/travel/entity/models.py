@@ -13,4 +13,4 @@ class Travel(models.Model):
         return self.travelName
 
     class Meta:
-        db_table = 'travel' # 라라라라
+        db_table = 'travel'
