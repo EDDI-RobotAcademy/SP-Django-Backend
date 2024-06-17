@@ -1,11 +1,15 @@
 from django.db import models
 
+from travel_board.entity.pointchoices import PointChoices
+
+
 # Create your models here.
-class Board(models.Model):
+class TravelBoard(models.Model):
     boardId = models.AutoField(primary_key=True)
     title = models.CharField(max_length=128, null=False)
     writer = models.CharField(max_length=32, null=False)
-    content = models.TextField()
+    point = models.CharField(max_length=4, choices=PointChoices.choices(), default=PointChoices.ZERO.value)
+    review = models.TextField()
     regDate = models.DateTimeField(auto_now_add=True)
     updDate = models.DateTimeField(auto_now=True)
 
@@ -13,4 +17,4 @@ class Board(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'board'
+        db_table = 'travel_board'
