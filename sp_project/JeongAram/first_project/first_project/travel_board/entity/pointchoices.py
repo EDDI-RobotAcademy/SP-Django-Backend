@@ -1,12 +1,12 @@
 from enum import Enum
 
 class PointChoices(Enum):
-    ZERO = '0.00'
-    ONE = '1.00'
-    TWO = '2.00'
-    THREE = '3.00'
-    FOUR = '4.00'
-    FIVE = '5.00'
+    ZERO = 0
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
 
     @classmethod
     def choices(cls):
