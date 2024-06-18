@@ -26,3 +26,6 @@ class TravelServiceImpl(TravelService):
 
         return self.__travelRepository.create(travelName, travelPrice, travelContent,
                      travelLocation, travelProperty, travelImage)
+
+    def readTravel(self, travelId):
+        return self.__travelRepository.findByTravelId(travelId)

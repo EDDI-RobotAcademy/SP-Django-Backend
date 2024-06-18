@@ -10,3 +10,7 @@ class TravelRepository(ABC):
     def create(self, travelName, travelPrice, travelContent,
                      travelLocation, travelProperty, travelImage):
         pass
+
+    @abstractmethod
+    def findByTravelId(self, travelId):
+        pass
