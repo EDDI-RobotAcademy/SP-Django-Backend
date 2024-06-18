@@ -11,3 +11,7 @@ class TravelBoardRepository(ABC):
     @abstractmethod
     def findByTravelBoardId(self, travelBoardId):
         pass
+
+    @abstractmethod
+    def update(self, travel_board, travelBoardData):
+        pass
