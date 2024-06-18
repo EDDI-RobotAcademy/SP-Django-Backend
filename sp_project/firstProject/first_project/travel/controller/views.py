@@ -1,5 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+
+
 from travel.entity.models import Travel
 from travel.serializers import TravelSerializer
 from travel.service.travel_service_impl import TravelServiceImpl
@@ -40,3 +42,8 @@ class TravelView(viewsets.ViewSet):
         except Exception as e:
             print('상품 등록 과정 중 문제 발생:', e)
             return Response({ 'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def readTravel(self, request, pk=None):
+        travel = self.travelService.readTravel(pk)
+        serializer = TravelSerializer(travel)
+        return Response(serializer.data)

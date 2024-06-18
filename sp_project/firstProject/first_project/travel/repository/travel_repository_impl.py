@@ -53,5 +53,12 @@ class TravelRepositoryImpl(TravelRepository):
         travel.save()
         return travel
 
+    def findByTravelId(self, travelId):
+        try:
+            return Travel.objects.get(travelId=travelId)
+        except Travel.DoesNotExist:
+            return None
+
+
 
 

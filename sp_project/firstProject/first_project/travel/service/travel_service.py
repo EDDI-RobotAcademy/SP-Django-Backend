@@ -10,3 +10,7 @@ class TravelService(ABC):
     def createTravel(self, travelName, travelPrice, travelContent,
                      travelLocation, travelProperty, travelImage):
         pass
+
+    @abstractmethod
+    def readTravel(self, travelId):
+        pass
