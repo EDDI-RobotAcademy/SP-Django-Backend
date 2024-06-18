@@ -35,3 +35,15 @@ class TravelBoardView(viewsets.ViewSet):
         travel_board = self.travelBoardService.readTravelBoard(pk)
         serializer = TravelBoardSerializer(travel_board)
         return Response(serializer.data)
+
+
+    def modifyTravelBoard(self, request, pk=None):
+        travel_board = self.travelBoardService.readTravelBoard(pk)
+        serializer = TravelBoardSerializer(travel_board, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            updatedTravelBoard = self.travelBoardService.updateTravelBoard(pk, serializer.validated_data)
+            return Response(TravelBoardSerializer(updatedTravelBoard).data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

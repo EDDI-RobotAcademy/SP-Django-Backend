@@ -24,3 +24,8 @@ class TravelBoardServiceImpl(TravelBoardService):
 
     def readTravelBoard(self, travelBoardId):
         return self.__travelBoardRepository.findByTravelBoardId(travelBoardId)
+
+    def updateTravelBoard(self, travelBoardId, travelBoardData):
+        travel_board = self.__travelBoardRepository.findByTravelBoardId(travelBoardId)
+        return self.__travelBoardRepository.update(travel_board, travelBoardData)
+

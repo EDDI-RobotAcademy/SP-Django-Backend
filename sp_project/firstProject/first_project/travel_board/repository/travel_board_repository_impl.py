@@ -22,6 +22,16 @@ class TravelBoardRepositoryImpl(TravelBoardRepository):
         return travel_board
 
     def findByTravelBoardId(self, travelBoardId):
-        # 빨간글씨는 해당 테이블의 찐 필드명임
         return TravelBoard.objects.get(boardId=travelBoardId)
+
+    def update(self, travel_board, travelBoardData):
+        for key, value in travelBoardData.items():
+            print(f"key: {key}, value: {value}")
+
+            setattr(travel_board, key, value)
+
+        travel_board.save()
+        return travel_board
+
+
 

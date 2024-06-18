@@ -11,6 +11,8 @@ class TravelBoard(models.Model):
     point = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()],
         default=int(PointChoices.ZERO.value))
     review = models.TextField()
+    reviewImage = models.CharField(max_length=100, null=True)
+
 
 
     regDate = models.DateTimeField(auto_now_add=True)
