@@ -10,4 +10,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('list/', TravelView.as_view({'get': 'list'}), name='travel-list'),
     path('register', TravelView.as_view({'post': 'register'}), name='travel-register'),
+    path('read/<int:pk>', TravelView.as_view({'get': 'readTravel'}), name='travel-read')
 ]
