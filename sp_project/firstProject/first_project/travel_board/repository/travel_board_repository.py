@@ -7,3 +7,7 @@ class TravelBoardRepository(ABC):
     @abstractmethod
     def create(self, travelBoardData):
         pass
+
+    @abstractmethod
+    def findByTravelBoardId(self, travelBoardId):
+        pass

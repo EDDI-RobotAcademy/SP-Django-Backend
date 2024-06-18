@@ -21,3 +21,6 @@ class TravelBoardServiceImpl(TravelBoardService):
 
     def createTravelBoard(self, travelBoardData):
         return self.__travelBoardRepository.create(travelBoardData)
+
+    def readTravelBoard(self, travelBoardId):
+        return self.__travelBoardRepository.findByTravelBoardId(travelBoardId)
