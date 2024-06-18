@@ -8,3 +8,4 @@ class TravelBoardSerializer(serializers.ModelSerializer):
         fields = ['boardId', 'title', 'writer', 'point', 'review']
         read_only_fields = ['regDate', 'updDate']
 
+

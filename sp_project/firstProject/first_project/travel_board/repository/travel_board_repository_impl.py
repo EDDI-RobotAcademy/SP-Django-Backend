@@ -20,3 +20,8 @@ class TravelBoardRepositoryImpl(TravelBoardRepository):
         travel_board = TravelBoard(**travelBoardData)
         travel_board.save()
         return travel_board
+
+    def findByTravelBoardId(self, travelBoardId):
+        # 빨간글씨는 해당 테이블의 찐 필드명임
+        return TravelBoard.objects.get(boardId=travelBoardId)
+

@@ -26,3 +26,7 @@ class TravelBoardView(viewsets.ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+    def read(self, request, pk=None):
+        travel_board = self.travelBoardService.readTravelBoard(pk)
+        serializer = TravelBoardSerializer(travel_board)
+        return Response(serializer.data)
