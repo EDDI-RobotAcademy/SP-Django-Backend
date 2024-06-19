@@ -19,11 +19,34 @@ class TravelBoardView(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
-        serializer = TravelBoardSerializer(data=request.data)
-        if serializer.is_valid():
-            travel_board = self.travelBoardService.createTravelBoard(serializer.validated_data)
-            return Response(TravelBoardSerializer(travel_board).data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            data = request.data
+
+            reviewImage = request.FILES.get('reviewImage')
+            title = data.get('title')
+            point = data.get('point')
+            writer = data.get('writer')
+            review = data.get('review')
+
+            if not all([reviewImage, title, point, writer, review]):
+                return Response({'error': '모든 내용을 채워주세요!'},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            self.travelBoardService.createTravelBoard(title, point, writer,
+                                              review, reviewImage)
+
+            serializer = TravelBoardSerializer(data=request.data)
+            return Response(status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print('상품 등록 과정 중 문제 발생:', e)
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        # print(request.data)
+        # serializer = TravelBoardSerializer(data=request.data)
+        # if serializer.is_valid():
+        #     travel_board = self.travelBoardService.createTravelBoard(serializer.validated_data)
+        #     return Response(TravelBoardSerializer(travel_board).data, status=status.HTTP_201_CREATED)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def read(self, request, pk=None):
         travel_board = self.travelBoardService.readBoard(pk)
