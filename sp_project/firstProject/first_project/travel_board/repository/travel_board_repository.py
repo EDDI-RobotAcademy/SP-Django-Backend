@@ -4,8 +4,12 @@ class TravelBoardRepository(ABC):
     def list(self):
         pass
 
+    # @abstractmethod
+    # def create(self, travelBoardData):
+    #     pass
+
     @abstractmethod
-    def create(self, travelBoardData):
+    def create(self, title, point, writer, review, reviewimage):
         pass
 
     @abstractmethod
