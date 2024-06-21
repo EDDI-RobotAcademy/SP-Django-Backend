@@ -19,8 +19,18 @@ class TravelBoardServiceImpl(TravelBoardService):
     def list(self):
         return self.__travelBoardRepository.list()
 
-    def createTravelBoard(self, travelBoardData):
-        return self.__travelBoardRepository.create(travelBoardData)
+    # def createTravelBoard(self, travelBoardData):
+    #     return self.__travelBoardRepository.create(travelBoardData)
+    def createTravelBoard(self, title, point, writer, review, reviewimage):
+        return self.__travelBoardRepository.create(
+            title, point, writer, review, reviewimage)
 
     def readTravelBoard(self, travelBoardId):
         return self.__travelBoardRepository.findByTravelBoardId(travelBoardId)
+
+    def removeTravelBoard(self, travelBoardId):
+        return self.__travelBoardRepository.deleteByTravelBoardId(travelBoardId)
+
+    def updateTravelBoard(self, travelBoardId, travelBoardData):
+        travel_board = self.__travelBoardRepository.findByTravelBoardId(travelBoardId)
+        return self.__travelBoardRepository.update(travel_board, travelBoardData)
