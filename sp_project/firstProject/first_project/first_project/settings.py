@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "travel",
-    "travel_board"
+    "travel_board",
 ]
 
 MIDDLEWARE = [
