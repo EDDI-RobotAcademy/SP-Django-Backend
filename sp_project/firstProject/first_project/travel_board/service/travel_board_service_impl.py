@@ -1,6 +1,6 @@
 from travel_board.repository.travel_board_repository_impl import TravelBoardRepositoryImpl
 from travel_board.service.travel_board_service import TravelBoardService
-# 240621
+
 class TravelBoardServiceImpl(TravelBoardService):
     __instance = None
 
