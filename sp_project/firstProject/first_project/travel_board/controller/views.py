@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-
+# 240621
 # Create your views here.
 from rest_framework import viewsets, status
 from travel_board.entity.models import TravelBoard

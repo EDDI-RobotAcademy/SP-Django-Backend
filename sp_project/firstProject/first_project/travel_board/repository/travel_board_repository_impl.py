@@ -2,6 +2,7 @@ from first_project import settings
 from travel_board.entity.models import TravelBoard
 from travel_board.repository.travel_board_repository import TravelBoardRepository
 import os
+# 240621
 class TravelBoardRepositoryImpl(TravelBoardRepository):
     __instance = None
     def __new__(cls):

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+# 240621
 class TravelBoardService(ABC):
     @abstractmethod
     def list(self):

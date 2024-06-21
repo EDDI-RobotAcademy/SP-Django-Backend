@@ -2,7 +2,7 @@ from django.db import models
 
 from travel_board.entity.pointchoices import PointChoices
 
-
+# 240621
 # Create your models here.
 class TravelBoard(models.Model):
     boardId = models.AutoField(primary_key=True)
