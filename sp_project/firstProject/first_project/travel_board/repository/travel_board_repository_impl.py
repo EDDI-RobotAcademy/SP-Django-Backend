@@ -25,3 +25,9 @@ class TravelBoardRepositoryImpl(TravelBoardRepository):
         # 빨간글씨는 해당 테이블의 찐 필드명임
         return TravelBoard.objects.get(boardId=travelBoardId)
 
+    def deleteByTravelBoardId(self, travelBoardId):
+        travel_board = TravelBoard.objects.get(boardId=travelBoardId)
+        travel_board.delete()
+
+
+

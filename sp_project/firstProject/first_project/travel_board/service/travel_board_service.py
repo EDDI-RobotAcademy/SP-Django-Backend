@@ -11,3 +11,8 @@ class TravelBoardService(ABC):
     @abstractmethod
     def readTravelBoard(self, travelBoardId):
         pass
+
+
+    @abstractmethod
+    def removeTravelBoard(self, travelBoardId):
+        pass

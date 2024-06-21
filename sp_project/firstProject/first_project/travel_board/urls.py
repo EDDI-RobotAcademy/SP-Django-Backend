@@ -11,4 +11,5 @@ urlpatterns = [
     path('list/', TravelBoardView.as_view({'get': 'list'}), name='travel-board-list'),
     path('register', TravelBoardView.as_view({'post': 'create'}), name='travel-board-register'),
     path('read/<int:pk>', TravelBoardView.as_view({'get': 'read'}), name='travel-board-read'),
+    path('delete/<int:pk>', TravelBoardView.as_view({'delete': 'removeTravelBoard'}), name='travel-board-remove'),
 ]

@@ -24,3 +24,9 @@ class TravelBoardServiceImpl(TravelBoardService):
 
     def readTravelBoard(self, travelBoardId):
         return self.__travelBoardRepository.findByTravelBoardId(travelBoardId)
+
+    def removeTravelBoard(self, travelBoardId):
+        return self.__travelBoardRepository.deleteByTravelBoardId(travelBoardId)
+
+
+

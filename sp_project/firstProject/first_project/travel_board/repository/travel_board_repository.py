@@ -11,3 +11,7 @@ class TravelBoardRepository(ABC):
     @abstractmethod
     def findByTravelBoardId(self, travelBoardId):
         pass
+
+    @abstractmethod
+    def deleteByTravelBoardId(self, travelBoardId):
+        pass

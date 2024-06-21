@@ -9,9 +9,8 @@ class TravelBoard(models.Model):
     title = models.CharField(max_length=128, null=False)
     writer = models.CharField(max_length=32, null=False)
     point = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()],
-        default=int(PointChoices.ZERO.value))
+                                default=int(PointChoices.ZERO.value))
     review = models.TextField()
-
 
     regDate = models.DateTimeField(auto_now_add=True)
     updDate = models.DateTimeField(auto_now=True)
@@ -21,3 +20,4 @@ class TravelBoard(models.Model):
 
     class Meta:
         db_table = 'travel_board'
+        app_label = 'travel_board'

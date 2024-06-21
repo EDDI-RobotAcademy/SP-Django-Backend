@@ -35,3 +35,7 @@ class TravelBoardView(viewsets.ViewSet):
         travel_board = self.travelBoardService.readTravelBoard(pk)
         serializer = TravelBoardSerializer(travel_board)
         return Response(serializer.data)
+
+    def removeTravelBoard(self, request, pk=None):
+        self.travelBoardService.removeTravelBoard(pk)
+        return Response(status=status.HTTP_204_NO_CONTENT)
