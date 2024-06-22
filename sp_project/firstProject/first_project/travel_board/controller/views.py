@@ -41,24 +41,15 @@ class TravelBoardView(viewsets.ViewSet):
         except Exception as e:
             print('상품 등록 과정 중 문제 발생:', e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        # print(request.data)
-        # serializer = TravelBoardSerializer(data=request.data)
-        # if serializer.is_valid():
-        #     travel_board = self.travelBoardService.createTravelBoard(serializer.validated_data)
-        #     return Response(TravelBoardSerializer(travel_board).data, status=status.HTTP_201_CREATED)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def read(self, request, pk=None):
-        travel_board = self.travelBoardService.readBoard(pk)
-        serializer = TravelBoardSerializer(travel_board)
-        return Response(serializer.data)
-
 
     def read(self, request, pk=None):
         travel_board = self.travelBoardService.readTravelBoard(pk)
         serializer = TravelBoardSerializer(travel_board)
         return Response(serializer.data)
 
+    def removeTravelBoard(self, request, pk=None):
+        self.travelBoardService.removeTravelBoard(pk)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def modifyTravelBoard(self, request, pk=None):
         travel_board = self.travelBoardService.readTravelBoard(pk)

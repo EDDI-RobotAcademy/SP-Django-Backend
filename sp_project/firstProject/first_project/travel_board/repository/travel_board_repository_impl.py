@@ -52,6 +52,10 @@ class TravelBoardRepositoryImpl(TravelBoardRepository):
     def findByTravelBoardId(self, travelBoardId):
         return TravelBoard.objects.get(boardId=travelBoardId)
 
+    def deleteByTravelBoardId(self, travelBoardId):
+        travel_board = TravelBoard.objects.get(boardId=travelBoardId)
+        travel_board.delete()
+
     def update(self, travel_board, travelBoardData):
         for key, value in travelBoardData.items():
             print(f"key: {key}, value: {value}")
