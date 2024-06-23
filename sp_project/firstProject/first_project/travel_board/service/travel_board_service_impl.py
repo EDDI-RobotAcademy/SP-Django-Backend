@@ -33,5 +33,5 @@ class TravelBoardServiceImpl(TravelBoardService):
 
     def updateTravelBoard(self, travelBoardId, travelBoardData):
         travel_board = self.__travelBoardRepository.findByTravelBoardId(travelBoardId)
-        return self.__travelBoardRepository.update(travel_board, travelBoardData)
-
+        updatedTravelBoard = self.__travelBoardRepository.update(travel_board, travelBoardData)
+        return updatedTravelBoard
