@@ -17,7 +17,9 @@ class TravelBoardRepository(ABC):
     def deleteByTravelBoardId(self, travelBoardId):
         pass
 
-
     @abstractmethod
-    def update(self, travel_board, travelBoardData):
+    def updateTravelBoard(self, travelBoardId, travelBoardData):
         pass
+
+
+
