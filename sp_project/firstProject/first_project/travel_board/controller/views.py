@@ -35,7 +35,6 @@ class TravelBoardView(viewsets.ViewSet):
             self.travelBoardService.createTravelBoard(title, point, writer,
                                               review, reviewImage)
 
-            serializer = TravelBoardSerializer(data=request.data)
             return Response(status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -52,22 +51,26 @@ class TravelBoardView(viewsets.ViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def modifyTravelBoard(self, request, pk=None):
+
         try:
             # pk를 가지고 기존(old)의 객체 반환
             travel_board = self.travelBoardService.readTravelBoard(pk)
             if not travel_board:
                 return Response({'error': '해당 id의 리뷰를 찾을 수 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
-            serializer = TravelBoardSerializer(travel_board, data=request.data, partial=True)
+            # serializer에서 계속 걸려서 일단 serializer 없이 시도
+            updatedTravelBoard = self.travelBoardService.updateTravelBoard(pk, request.data)
+            return Response(TravelBoardSerializer(updatedTravelBoard).data, status=status.HTTP_200_OK)
 
-            if serializer.is_valid():
-                # 시리얼라이저 거쳐 검증된 데이터로 업데이트 진행
-                # 업데이트된 객체(updatedTravelBoard)를 Vue에 전달한다.
-                updatedTravelBoard = self.travelBoardService.updateTravelBoard(pk, serializer.validated_data)
-                print(f"반환 성공!")
-                return Response(TravelBoardSerializer(updatedTravelBoard).data, status=status.HTTP_200_OK)
-            # 만약 유효하지 않은 데이터라면 아래 반응이 나온다.
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            #serializer = TravelBoardSerializer(travel_board, data=request.data, partial=True)
+            # if serializer.is_valid():
+            #     print('modify controller')
+            #     # 시리얼라이저 거쳐 검증된 데이터로 업데이트 진행
+            #     # 업데이트된 객체(updatedTravelBoard)를 Vue에 전달한다.
+            #     updatedTravelBoard = self.travelBoardService.updateTravelBoard(pk, serializer.validated_data)
+            #     return Response(TravelBoardSerializer(updatedTravelBoard).data, status=status.HTTP_200_OK)
+            # # 만약 유효하지 않은 데이터라면 아래 반응이 나온다.
+            # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
             print('수정 과정 중 문제 발생:', e)

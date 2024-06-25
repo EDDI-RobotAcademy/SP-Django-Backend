@@ -19,8 +19,6 @@ class TravelBoardServiceImpl(TravelBoardService):
     def list(self):
         return self.__travelBoardRepository.list()
 
-    # def createTravelBoard(self, travelBoardData):
-    #     return self.__travelBoardRepository.create(travelBoardData)
     def createTravelBoard(self, title, point, writer, review, reviewimage):
         return self.__travelBoardRepository.create(
             title, point, writer, review, reviewimage)

@@ -4,13 +4,12 @@ class TravelBoardRepository(ABC):
     @abstractmethod
     def list(self):
         pass
-
-    # @abstractmethod
-    # def create(self, travelBoardData):
-    #     pass
-
     @abstractmethod
     def create(self, title, point, writer, review, reviewimage):
+        pass
+
+    @abstractmethod
+    def findByTravelBoardId(self, travelBoardId):
         pass
 
     @abstractmethod
@@ -18,7 +17,7 @@ class TravelBoardRepository(ABC):
         pass
 
     @abstractmethod
-    def updateTravelBoard(self, travelBoardId, travelBoardData):
+    def update(self, travelBoardId, travelBoardData):
         pass
 
 
