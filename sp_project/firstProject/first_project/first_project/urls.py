@@ -24,5 +24,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("travel/", include("travel.urls")),
     path("travel_board/", include("travel_board.urls")),
+    path("travel_account/", include("travel_account.urls")),
 
 ]
