@@ -8,5 +8,8 @@ router.register(r'kakaoOauth', KakaoOauthView, basename='kakaoOauth')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('kakao', KakaoOauthView.as_view({'get': 'kakaoOauthURI'}), name='get-kakao-oauth-uri'),
+    path('kakao/access-token', KakaoOauthView.as_view({'post': 'kakaoAccessTokenURI'}),
+         name='get-kakao-access-token-uri'),
 
 ]

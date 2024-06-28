@@ -1,3 +1,5 @@
+import requests
+
 from kakaoOauth.service.kakao_oauth_service import KakaoOauthService
 from first_project import settings
 
@@ -30,6 +32,27 @@ class KakaoOauthServiceImpl(KakaoOauthService):
         return (f"{self.loginUrl}/oauth/authorize?"
                 f"client_id={self.clientId}&redirect_uri={self.redirectUri}&response_type=code")
 
+    def requestAccessToken(self, kakaoAuthCode):
+        print("requestAccessToken()") # 메서드 호출 시 메시지 출력
 
+        # accessToken 요청을 위한 폼 데이터 작성
+        accessTokenRequestForm = {
+            'grant_type': 'authorization_code',  # 인증 코드 유형
+            'client_id': self.clientId,          # 클라이언트 ID
+            'redirect_uri': self.redirectUri,    # 인증 후 리디렉션될 URL
+            'code': self.kakaoAuthCode,          # 클라이언트로부터 받은 인증 코드
+        }
+
+        # 디버깅을 위해 요청 정보를 출력
+        print(f"client_id: {self.clientId}")
+        print(f"redirect_uri: {self.redirectUri}")
+        print(f"code: {kakaoAuthCode}")
+        print(f"tokenRequestUri: {self.tokenRequestUri}")
+
+        # 카카오 서버에 HTTP POST 요청을 보냄
+        response = requests.post(self.tokenRequestUri, data=accessTokenRequestForm)
+        print(f"response: {response}")
+        # 응답 데이터를 JSON 형식으로 반환
+        return response.json()
 
 
