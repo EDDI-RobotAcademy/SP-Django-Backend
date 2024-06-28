@@ -25,5 +25,6 @@ urlpatterns = [
     path("travel/", include("travel.urls")),
     path("travel_board/", include("travel_board.urls")),
     path("travel_account/", include("travel_account.urls")),
+    path("kakaoOauth/", include("kakaoOauth.urls")),
 
 ]

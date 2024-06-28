@@ -45,6 +45,16 @@ class KakaoOauthView(viewsets.Viewset):
             # 예외 발생 시 에러 메시지를 JSON 응답으로 반환
             return JsonResponse({'error': str(e)}, status=500)
 
+    def kakaoUserInfoURI(self, request):
+        accessToken = self.data.get('access_token')
+        print(f'accessToken: {accessToken}')
+
+        try:
+            user_info = self.oauthService.requestUserInfo(accessToken)
+            return JsonResponse({'user_info': user_info})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
 
 
 

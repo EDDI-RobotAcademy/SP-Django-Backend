@@ -11,5 +11,7 @@ urlpatterns = [
     path('kakao', KakaoOauthView.as_view({'get': 'kakaoOauthURI'}), name='get-kakao-oauth-uri'),
     path('kakao/access-token', KakaoOauthView.as_view({'post': 'kakaoAccessTokenURI'}),
          name='get-kakao-access-token-uri'),
+    path('kakao/user-info', KakaoOauthView.as_view({'post': 'kakaoUserInfoURI'}),
+         name='get-kakao-user-info-uri'),
 
 ]

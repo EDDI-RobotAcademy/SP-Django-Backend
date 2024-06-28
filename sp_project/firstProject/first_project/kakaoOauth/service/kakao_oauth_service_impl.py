@@ -55,4 +55,10 @@ class KakaoOauthServiceImpl(KakaoOauthService):
         # 응답 데이터를 JSON 형식으로 반환
         return response.json()
 
+    def requestUserInfo(self, accessToken):
+        # HTTP 요청 시 헤더를 통해 사용자 인증
+        headers = {'Authorization': f'Bearer {accessToken}'}
+        response = requests.post(self.userinfoRequestUri, headers=headers)
+        return response.json()
+
 
