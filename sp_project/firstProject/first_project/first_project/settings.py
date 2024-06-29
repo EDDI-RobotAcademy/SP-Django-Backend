@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -73,6 +73,14 @@ TEMPLATES = [
         },
     },
 ]
+
+KAKAO = {
+    'LOGIN_URL': os.getenv('KAKAO_LOGIN_URL'),
+    'CLIENT_ID': os.getenv('KAKAO_CLIENT_ID'),
+    'REDIRECT_URI': os.getenv('KAKAO_REDIRECT_URI'),
+    'TOKEN_REQUEST_URI': os.getenv('KAKAO_TOKEN_REQUEST_URI'),
+    'USERINFO_REQUEST_URI': os.getenv('KAKAO_USERINFO_REQUEST_URI')
+}
 
 WSGI_APPLICATION = "first_project.wsgi.application"
 
