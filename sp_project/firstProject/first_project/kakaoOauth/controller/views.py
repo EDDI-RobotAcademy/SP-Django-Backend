@@ -10,12 +10,12 @@ from kakaoOauth.service.kakao_oauth_service_impl import KakaoOauthServiceImpl
 
 # Create your views here.
 class KakaoOauthView(viewsets.Viewset):
-    oauthService = KakaoOauthServiceImpl.getInstance()
+    kakaoOauthService = KakaoOauthServiceImpl.getInstance()
 
 
     def kakaoOauthURI(self, request):
         # 카카오 로그인 주소 생성
-        url = self.oauthService.kakaoLoginAddress()
+        url = self.kakaoOauthService.kakaoLoginAddress()
         print(f"url", url)
 
         # 시리얼라이저를 사용해 데이터 초기화
@@ -38,7 +38,7 @@ class KakaoOauthView(viewsets.Viewset):
 
         try:
             # 인증 코드를 사용하여 accessToken 요청
-            accessToken = self.oauthService.requestAccessToken(code)
+            accessToken = self.kakaoOauthService.requestAccessToken(code)
             # accessToken을 JSON 응답으로 반환
             return JsonResponse({'accessToken': accessToken})
         except Exception as e:
@@ -50,7 +50,7 @@ class KakaoOauthView(viewsets.Viewset):
         print(f'accessToken: {accessToken}')
 
         try:
-            user_info = self.oauthService.requestUserInfo(accessToken)
+            user_info = self.kakaoOauthService.requestUserInfo(accessToken)
             return JsonResponse({'user_info': user_info})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
