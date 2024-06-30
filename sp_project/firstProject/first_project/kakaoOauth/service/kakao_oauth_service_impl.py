@@ -29,7 +29,7 @@ class KakaoOauthServiceImpl(KakaoOauthService):
         # 메서드 호출 시 메시지 출력
         print("kakaoLoginAddress()")
         # 카카오 로그인 URL을 생성하여 반환
-        return (f"{self.loginUrl}/oauth/authorize?"
+        return (f"{self.loginUrl}/kakao_oauth/authorize?"
                 f"client_id={self.clientId}&redirect_uri={self.redirectUri}&response_type=code")
 
     def requestAccessToken(self, kakaoAuthCode):
