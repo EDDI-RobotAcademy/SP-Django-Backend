@@ -7,14 +7,14 @@ from travel_account.service.travel_account_service_impl import TravelAccountServ
 
 
 class TravelAccountView(viewsets.ViewSet):
-    travel_accountService = TravelAccountServiceImpl.getInstance()
+    travelAccountService = TravelAccountServiceImpl.getInstance()
 
     def checkEmailDuplication(self, request):
         print("checkEmailDuplication()")
 
         try:
             email = request.data.get('email')
-            isDuplicate = self.travel_accountService.checkEmailDuplication(email)
+            isDuplicate = self.travelAccountService.checkEmailDuplication(email)
 
             return Response({'isDuplicate': isDuplicate, 'massage': ' 이미 가입된 Email입니다.'\
                              if isDuplicate else '사용 가능한 Email입니다.'}, status=status.HTTP_200_OK)
@@ -29,7 +29,7 @@ class TravelAccountView(viewsets.ViewSet):
         try:
             nickname = request.data.get('newNickname')
             print(f"nickname: {nickname}")
-            isDuplicate = self.travel_accountService.checkNicknameDuplication(nickname)
+            isDuplicate = self.travelAccountService.checkNicknameDuplication(nickname)
 
             return Response({'isDuplicate': isDuplicate, 'message': '이미 사용 중인 Nickname 입니다.' \
                              if isDuplicate else '사용 가능한 Nickname 입니다.'}, status=status.HTTP_200_OK)
@@ -43,7 +43,7 @@ class TravelAccountView(viewsets.ViewSet):
             nickname = request.data.get('nickname')
             email = request.data.get('email')
 
-            travel_account = self.travel_accountService.registerTravelAccount(
+            travel_account = self.travelAccountService.registerTravelAccount(
                 loginType='KAKAO',
                 roleType='NORMAL',
                 nickname=nickname,

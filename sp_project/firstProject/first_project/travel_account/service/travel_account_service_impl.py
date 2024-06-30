@@ -11,7 +11,7 @@ class TravelAccountServiceImpl(TravelAccountService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
             cls.__instance.__profileRepository = ProfileRepositoryImpl.getInstance()
-            cls.__instance.__travel_accountRepository = TravelAccountRepositoryImpl.getInstance()
+            cls.__instance.__travelAccountRepository = TravelAccountRepositoryImpl.getInstance()
 
         return cls.__instance
 
@@ -34,6 +34,6 @@ class TravelAccountServiceImpl(TravelAccountService):
 
 
     def registerTravelAccount(self, loginType, roleType, nickname, email):
-        trvel_account = self.__travel_accountRepository.create(loginType, roleType)
+        trvel_account = self.__travelAccountRepository.create(loginType, roleType)
         return self.__profileRepository.create(nickname, email, travel_account)
 
