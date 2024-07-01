@@ -7,7 +7,6 @@ class ProfileRepository(ABC):
     def findByEmail(self, email):
         pass
 
-
     @abstractmethod
     def findByNickname(self, nickname):
         pass

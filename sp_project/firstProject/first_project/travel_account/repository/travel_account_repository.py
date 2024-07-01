@@ -6,7 +6,6 @@ class TravelAccountRepository(ABC):
     def create(self, loginType, roleType):
         pass
 
-
     @abstractmethod
     def findById(self, accountId):
         pass
