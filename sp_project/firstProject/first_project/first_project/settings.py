@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "travel",
     "travel_board",
+
 ]
 
 MIDDLEWARE = [

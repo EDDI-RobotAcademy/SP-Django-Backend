@@ -9,7 +9,7 @@ from kakaoOauth.service.kakao_oauth_service_impl import KakaoOauthServiceImpl
 
 
 # Create your views here.
-class KakaoOauthView(viewsets.Viewset):
+class KakaoOauthView(viewsets.ViewSet):
     kakaoOauthService = KakaoOauthServiceImpl.getInstance()
 
 
