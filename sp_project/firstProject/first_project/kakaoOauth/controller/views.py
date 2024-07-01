@@ -8,13 +8,15 @@ from rest_framework.response import Response
 from kakaoOauth.serializer.kakao_oauth_access_token_serializer import KakaoOauthAccessTokenSerializer
 from kakaoOauth.serializer.kakao_oauth_url_serializer import KakaoOauthUrlSerializer
 from kakaoOauth.service.kakao_oauth_service_impl import KakaoOauthServiceImpl
+from kakaoOauth.service.redis_service_impl import RedisServiceImpl
+from travel_account.service.travel_account_service_impl import TravelAccountServiceImpl
 
 
 # Create your views here.
 class KakaoOauthView(viewsets.ViewSet):
     kakaoOauthService = KakaoOauthServiceImpl.getInstance()
-
-
+    travelAccountService = TravelAccountServiceImpl.getInstance()
+    redisService = RedisServiceImpl.getInstance()
     def kakaoOauthURI(self, request):
         # 카카오 로그인 주소 생성
         url = self.kakaoOauthService.kakaoLoginAddress()
@@ -37,19 +39,22 @@ class KakaoOauthView(viewsets.ViewSet):
         serializer.is_valid(raise_exception=True)
         # 유효한 데이터에서 code 값을 추출
         code = serializer.validated_data['code']
-
+        print(f"code : {code}")
         try:
             # 인증 코드를 사용하여 accessToken 요청
             accessToken = self.kakaoOauthService.requestAccessToken(code)
+            print(f"kakaoAccessTokenURI accessToken : {accessToken}")
+
             # accessToken을 JSON 응답으로 반환
             return JsonResponse({'accessToken': accessToken})
+
         except Exception as e:
             # 예외 발생 시 에러 메시지를 JSON 응답으로 반환
             return JsonResponse({'error': str(e)}, status=500)
 
     def kakaoUserInfoURI(self, request):
-        accessToken = self.data.get('access_token')
-        print(f'accessToken: {accessToken}')
+        accessToken = request.data.get('access_token')
+        print(f'kakaoUserInfoURI accessToken: {accessToken}')
 
         try:
             user_info = self.kakaoOauthService.requestUserInfo(accessToken)
@@ -69,13 +74,14 @@ class KakaoOauthView(viewsets.ViewSet):
             account = self.travelAccountService.findAccountByEmail(email)
             if not account:
                 return Response({'error': 'Account not found'}, status=status.HTTP_404_NOT_FOUND)
+
             # 랜덤한 값을 만들어 userToken으로 준다.
             # random함수를 사용하는 것 보다 중복가능성이 낮아 uuid4를 사용
             userToken = str(uuid.uuid4())
             self.redisService.storeAccessToken(account.id, userToken)
 
             accountId = self.redisService.getValueByKey(userToken)
-            print(f"accountId: {accountId}")
+            print(f"after redis' convert accountId: {accountId}")
 
             return Response({'userToken': userToken}, status=status.HTTP_200_OK)
         except Exception as e:

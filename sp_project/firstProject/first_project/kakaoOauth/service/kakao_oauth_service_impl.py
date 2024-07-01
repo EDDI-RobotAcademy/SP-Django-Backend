@@ -40,7 +40,8 @@ class KakaoOauthServiceImpl(KakaoOauthService):
             'grant_type': 'authorization_code',  # 인증 코드 유형
             'client_id': self.clientId,          # 클라이언트 ID
             'redirect_uri': self.redirectUri,    # 인증 후 리디렉션될 URL
-            'code': self.kakaoAuthCode,          # 클라이언트로부터 받은 인증 코드
+            'code': kakaoAuthCode,          # 클라이언트로부터 받은 인증 코드
+            'client_secret': None
         }
 
         # 디버깅을 위해 요청 정보를 출력

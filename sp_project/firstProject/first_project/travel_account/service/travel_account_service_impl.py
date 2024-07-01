@@ -34,6 +34,8 @@ class TravelAccountServiceImpl(TravelAccountService):
 
 
     def registerTravelAccount(self, loginType, roleType, nickname, email):
-        trvel_account = self.__travelAccountRepository.create(loginType, roleType)
+        travel_account = self.__travelAccountRepository.create(loginType, roleType)
         return self.__profileRepository.create(nickname, email, travel_account)
 
+    def findAccountByEmail(self, email):
+        return self.__profileRepository.findByEmail(email)
