@@ -13,5 +13,5 @@ class Profile(models.Model):
         return f"Profile -> email: {self.email}, nickname: {self.nickname}"
 
     class Meta:
-        db_table = 'profile'
+        db_table = 'travel_profile'
         app_label = 'travel_account'
