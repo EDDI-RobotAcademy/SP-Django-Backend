@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "travel",
     "travel_board",
-
+    "travel_account",
+    "kakaoOauth",
 ]
 
 MIDDLEWARE = [
