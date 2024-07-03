@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "travel_board",
     "travel_account",
     "kakaoOauth",
+    "travel_orders"
 ]
 
 MIDDLEWARE = [
