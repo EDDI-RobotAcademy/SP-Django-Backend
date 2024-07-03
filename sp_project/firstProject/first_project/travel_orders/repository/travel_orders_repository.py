@@ -2,4 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class TravelOrdersRepository(ABC):
-    pass
+
+    def create(self, accountId, status):
+        pass

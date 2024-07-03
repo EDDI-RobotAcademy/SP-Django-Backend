@@ -16,3 +16,8 @@ class TravelOrdersItemRepositoryImpl(TravelOrdersItemRepository):
             cls.__instance = cls()
 
         return cls.__instance
+
+    def create(self, orders, travel, price):
+        # 입력 데이터에 맞게 OrdersItem field 내용 저장
+        order_item = TravelOrdersItem(orders=orders, travel=travel, price=price)
+        order_item.save()
