@@ -10,6 +10,7 @@ class KakaoOauthServiceImpl(KakaoOauthService):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
 
+            from first_project import settings
             cls.__instance.loginUrl = settings.KAKAO['LOGIN_URL']
             cls.__instance.clientId = settings.KAKAO['CLIENT_ID']
             cls.__instance.redirectUri = settings.KAKAO['REDIRECT_URI']
@@ -41,7 +42,7 @@ class KakaoOauthServiceImpl(KakaoOauthService):
             'client_id': self.clientId,          # 클라이언트 ID
             'redirect_uri': self.redirectUri,    # 인증 후 리디렉션될 URL
             'code': kakaoAuthCode,          # 클라이언트로부터 받은 인증 코드
-            'client_secret': None
+            # 'client_secret': None
         }
 
         # 디버깅을 위해 요청 정보를 출력
