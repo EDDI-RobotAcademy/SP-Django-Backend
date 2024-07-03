@@ -8,4 +8,5 @@ router.register(r'travel_orders', TravelOrdersView, basename='travel_orders')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('create', TravelOrdersView.as_view({'post': 'createOrders'}), name='travel-order-create'),
 ]

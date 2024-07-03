@@ -15,3 +15,9 @@ class TravelOrdersRepositoryImpl(TravelOrdersRepository):
         if cls.__instance is None:
             cls.__instance = cls()
         return cls.__instance
+
+    def create(self, accountId, status):
+        orders = TravelOrders(account_id=accountId, status=status)
+        orders.save()
+
+        return orders
