@@ -30,6 +30,6 @@ class TravelReviewServiceImpl(TravelReviewService):
         return self.__travelReviewRepository.deleteByTravelReviewId(travelReviewId)
 
     def updateTravelReview(self, travelReviewId, travelReviewData):
-        travel_review = self.__travelReviewRepository.findByTravelId(travelReviewId)
+        travel_review = self.__travelReviewRepository.findByTravelReviewId(travelReviewId)
         updatedTravelReview = self.__travelReviewRepository.update(travel_review, travelReviewData)
         return updatedTravelReview

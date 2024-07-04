@@ -58,7 +58,8 @@ class TravelReviewRepositoryImpl(TravelReviewRepository):
         # 요청에 이미지가 진짜 있다면, 새 이미지로 교체
         if 'reviewImage' in travelReviewData:  # if travelBoardData['reviewImage'] != null
             new_image = travelReviewData['reviewImage']
-            if new_image:
+            print(new_image)
+            if new_image != 'null':
                 # 필요한 경우 기존 이미지 삭제
                 if travel_review.reviewImage:
                     print("바꾼 이미지 등록")
@@ -78,6 +79,8 @@ class TravelReviewRepositoryImpl(TravelReviewRepository):
                         os.fsync(destination.fileno())
                     # db field인 reviewImage 이름이 new_image의 이름으로 바뀜
                     travel_review.reviewImage = new_image
+            else:
+                pass
 
         # 나머지 필드 업데이트
         for key, value in travelReviewData.items():
