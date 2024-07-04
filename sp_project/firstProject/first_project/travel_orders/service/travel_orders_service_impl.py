@@ -25,10 +25,11 @@ class TravelOrderServiceImpl(TravelOrderService):
             # travel_orders객체 생성
             travel_orders = self.__travelOrdersRepository.create(accountId, TravelOrdersStatus.PENDING) # 확인이 안된 정보 Pending
             for item in orderItemList:
+                print(f"order item : {item}")
                 # 주문 정보가 담긴 ordersItem 객체 생성
                 self.__travelOrdersItemRepository.create(
                     travel_orders, # 주문번호(ID), 계정정보 담김
-                    item['travelName'], # 상품 정보 담김
+                    self.__travelRepository.findByTravelId(item['travelId']), # travel 객체 정보
                     item['orderPrice'], # 상품 가격 담김
                 )
             return travel_orders.id
