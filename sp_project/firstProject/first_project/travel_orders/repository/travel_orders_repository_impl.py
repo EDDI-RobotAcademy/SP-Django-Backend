@@ -21,3 +21,6 @@ class TravelOrdersRepositoryImpl(TravelOrdersRepository):
         orders.save()
 
         return orders
+
+    def findById(self, orderId):
+        return TravelOrders.objects.get(id=orderId)
