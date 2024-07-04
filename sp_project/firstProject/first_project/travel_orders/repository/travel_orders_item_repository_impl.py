@@ -21,3 +21,6 @@ class TravelOrdersItemRepositoryImpl(TravelOrdersItemRepository):
         # 입력 데이터에 맞게 OrdersItem field 내용 저장
         order_item = TravelOrdersItem(orders=orders, travel=travel, price=price)
         order_item.save()
+
+    def findAllByOrder(self, order):
+        return TravelOrdersItem.objects.filter(orders=order)

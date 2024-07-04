@@ -29,3 +29,23 @@ class TravelOrdersView(viewsets.ViewSet):
         except Exception as e:
             print('주문 과정 중 에러 발생')
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def readOrders(self, request, orderId):
+        try:
+            data = request.data
+            print(f'data: {data}, orderId: {orderId}')
+
+            userToken = data.get('userToken')
+            accountId = self.redisService.getValueByKey(userToken)
+            print(f"accountId: {accountId}")
+
+            if not accountId:
+                raise ValueError('Invalid userToken')
+
+            order = self.travelOrderService.readOrderDetails(orderId, accountId)
+            print(f"controller return order : {order}")
+            return Response(order, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print('주문 상세 내역 조회 중 문제 발생:', e)
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)

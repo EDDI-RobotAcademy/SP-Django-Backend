@@ -37,3 +37,47 @@ class TravelOrderServiceImpl(TravelOrderService):
         except Exception as e:
             print('Error Creating order:', e)
             raise e
+
+    def readOrderDetails(self, orderId, accountId):
+        try:
+            order = self.__travelOrdersRepository.findById(orderId) # todo
+            print(f"travel order : {order}")
+            # print(f"order.account.id: {order.account.id}, accountId: {accountId}")
+            # print(f"type(order.account.id): {type(order.account.id)}, type(accountId): {type(accountId)}")
+            if order.account.id != int(accountId):
+                raise ValueError('Invalid accountId for this order')
+
+            print("check order object <- readOrderDetails()")
+
+            # OrdersItemRepositoryImpl을 통해 해당 주문의 상세 항목들을 조회합니다.
+            ordersItemList = self.__travelOrdersItemRepository.findAllByOrder(order) # todo
+
+            totalPrice = sum(ordersItem.total_price() for ordersItem in ordersItemList)
+
+            # 조회된 주문 상세 내역을 필요한 형식으로 반환할 수 있도록 구성합니다.
+            order_details = {
+                'order': {
+                    'id': order.id,
+                    'status': order.status,
+                    'created_data': order.created_data,
+                    'total_price': totalPrice,
+                    # 'shipping_address': order.shipping_address,
+                    # 'billing_address': order.billing_address,
+                },
+                'order_items': [
+                    {
+                        'travel_id': item.travel_id,
+                        'travel_name': self.__travelRepository.findByTravelId(item.travel_id).travelName,
+                        #'quantity': item.quantity,
+                        'price': item.price,
+                        #'total_price': item.total_price(),
+                    }
+                    for item in ordersItemList
+                ]
+            }
+
+            return order_details
+
+        except Exception as e:
+            print('Error reading order details:', e)
+            raise e
