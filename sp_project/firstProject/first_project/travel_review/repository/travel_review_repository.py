@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 # 240621
-class TravelBoardRepository(ABC):
+class TravelReviewRepository(ABC):
     @abstractmethod
     def list(self):
         pass
@@ -9,15 +9,15 @@ class TravelBoardRepository(ABC):
         pass
 
     @abstractmethod
-    def findByTravelBoardId(self, travelBoardId):
+    def findByTravelReviewId(self, travelReviewId):
         pass
 
     @abstractmethod
-    def deleteByTravelBoardId(self, travelBoardId):
+    def deleteByTravelReviewId(self, travelReviewId):
         pass
 
     @abstractmethod
-    def update(self, travelBoardId, travelBoardData):
+    def update(self, travelReviewId, travelReviewData):
         pass
 
 

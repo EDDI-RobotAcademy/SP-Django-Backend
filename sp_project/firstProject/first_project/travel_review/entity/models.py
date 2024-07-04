@@ -1,11 +1,11 @@
 from django.db import models
 
-from travel_board.entity.pointchoices import PointChoices
+from travel_review.entity.pointchoices import PointChoices
 
 # 240621
 # Create your models here.
-class TravelBoard(models.Model):
-    boardId = models.AutoField(primary_key=True)
+class TravelReview(models.Model):
+    reviewId = models.AutoField(primary_key=True)
     title = models.CharField(max_length=128, null=False)
     writer = models.CharField(max_length=32, null=False)
     point = models.IntegerField(choices=[(int(choice[0]), choice[1]) for choice in PointChoices.choices()],
@@ -22,4 +22,4 @@ class TravelBoard(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'travel_board'
+        db_table = 'travel_review'

@@ -1,9 +1,9 @@
 from first_project import settings
-from travel_board.entity.models import TravelBoard
-from travel_board.repository.travel_board_repository import TravelBoardRepository
+from travel_review.entity.models import TravelReview
+from travel_review.repository.travel_review_repository import TravelReviewRepository
 import os
 # 240621
-class TravelBoardRepositoryImpl(TravelBoardRepository):
+class TravelReviewRepositoryImpl(TravelReviewRepository):
     __instance = None
     def __new__(cls):
         if cls.__instance is None:
@@ -17,7 +17,7 @@ class TravelBoardRepositoryImpl(TravelBoardRepository):
         return cls.__instance
 
     def list(self):
-        return TravelBoard.objects.all().order_by('-regDate')
+        return TravelReview.objects.all().order_by('-regDate')
 
     def create(self, title, point, writer, review, reviewimage):
         uploadDirectory = os.path.join(
@@ -35,32 +35,32 @@ class TravelBoardRepositoryImpl(TravelBoardRepository):
             destination.flush()
             os.fsync(destination.fileno())
 
-        travel_board = TravelBoard(
+        travel_review = TravelReview(
             title=title,
             review=review,
             writer=writer,
             point=point,
             reviewImage=reviewimage.name
         )
-        travel_board.save()
-        return travel_board
+        travel_review.save()
+        return travel_review
 
-    def findByTravelBoardId(self, travelBoardId):
-        return TravelBoard.objects.get(boardId=travelBoardId)
+    def findByTravelReviewId(self, travelReviewId):
+        return TravelReview.objects.get(reviewId=travelReviewId)
 
-    def deleteByTravelBoardId(self, travelBoardId):
-        travel_board = TravelBoard.objects.get(boardId=travelBoardId)
-        travel_board.delete()
+    def deleteByTravelReviewId(self, travelReviewId):
+        travel_review = TravelReview.objects.get(boardId=travelReviewId)
+        travel_review.delete()
 
-    def update(self, travel_board, travelBoardData):
-        print(f"travel_board repository update()")
+    def update(self, travel_review, travelReviewData):
+        print(f"travel_review repository update()")
         # 이미지만 수정
         # 요청에 이미지가 진짜 있다면, 새 이미지로 교체
-        if 'reviewImage' in travelBoardData:  # if travelBoardData['reviewImage'] != null
-            new_image = travelBoardData['reviewImage']
+        if 'reviewImage' in travelReviewData:  # if travelBoardData['reviewImage'] != null
+            new_image = travelReviewData['reviewImage']
             if new_image:
                 # 필요한 경우 기존 이미지 삭제
-                if travel_board.reviewImage:
+                if travel_review.reviewImage:
                     print("바꾼 이미지 등록")
                     uploadDirectory = os.path.join(
                         settings.BASE_DIR,
@@ -77,16 +77,16 @@ class TravelBoardRepositoryImpl(TravelBoardRepository):
                         destination.flush()
                         os.fsync(destination.fileno())
                     # db field인 reviewImage 이름이 new_image의 이름으로 바뀜
-                    travel_board.reviewImage = new_image
+                    travel_review.reviewImage = new_image
 
         # 나머지 필드 업데이트
-        for key, value in travelBoardData.items():
+        for key, value in travelReviewData.items():
             # reviewImage field 빼고 다 업데이트
             if key != 'reviewImage':
-                setattr(travel_board, key, value)
+                setattr(travel_review, key, value)
 
-        travel_board.save()
-        return travel_board
+        travel_review.save()
+        return travel_review
 
 
 

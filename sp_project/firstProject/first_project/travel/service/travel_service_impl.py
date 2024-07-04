@@ -22,10 +22,10 @@ class TravelServiceImpl(TravelService):
         return self.__travelRepository.list()
 
     def createTravel(self, travelName, travelPrice, travelContent,
-                     travelLocation, travelProperty, travelImage):
+                     travelProperty, travelImage):
 
         return self.__travelRepository.create(travelName, travelPrice, travelContent,
-                     travelLocation, travelProperty, travelImage)
+                     travelProperty, travelImage)
 
     def readTravel(self, travelId):
         return self.__travelRepository.findByTravelId(travelId)

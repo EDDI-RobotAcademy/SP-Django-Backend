@@ -1,11 +1,11 @@
-from abc import ABC
+
 
 from travel_account.entity.travel_account import TravelAccount
 from travel_account.entity.travel_account_login_type import TravelAccountLoginType
 from travel_account.entity.travel_account_role_type import TravelAccountRoleType
 from travel_account.repository.travel_account_repository import TravelAccountRepository
 
-class TravelAccountRepositoryImpl(ABC):
+class TravelAccountRepositoryImpl(TravelAccountRepository):
     __instance = None
 
     def __new__(cls):
@@ -27,8 +27,8 @@ class TravelAccountRepositoryImpl(ABC):
         loginTypeEntity, _ = TravelAccountLoginType.objects.get_or_create(loginType=loginType)
         roleTypeEntity, _ = TravelAccountRoleType.objects.get_or_create(roleType=roleType)
 
-        trvel_account = TravelAccount.objects.create(loginType=loginTypeEntity, roleType=roleTypeEntity)
-        return trvel_account
+        travel_account = TravelAccount.objects.create(loginType=loginTypeEntity, roleType=roleTypeEntity)
+        return travel_account
 
 
     def findById(self, accountId):
