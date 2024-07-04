@@ -7,7 +7,7 @@ class TravelReviewServiceImpl(TravelReviewService):
     def __new__(cls):
         if cls.__instance is None:
             cls.__instance = super().__new__(cls)
-            cls.__instance.__travelReviewBoardRepository = TravelReviewRepositoryImpl.getInstance()
+            cls.__instance.__travelReviewRepository = TravelReviewRepositoryImpl.getInstance()
             return cls.__instance
 
     @classmethod
