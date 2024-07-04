@@ -23,7 +23,7 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("travel/", include("travel.urls")),
-    path("travel_board/", include("travel_board.urls")),
+    path("travel_review/", include("travel_review.urls")),
     path("travel_account/", include("travel_account.urls")),
     path("kakaoOauth/", include("kakaoOauth.urls")),
     path("travel_orders/", include("travel_orders.urls")),

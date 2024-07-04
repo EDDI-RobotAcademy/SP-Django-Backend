@@ -8,7 +8,7 @@ class TravelRepository(ABC):
 
     @abstractmethod
     def create(self, travelName, travelPrice, travelContent,
-                     travelLocation, travelProperty, travelImage):
+                     travelProperty, travelImage):
         pass
 
     @abstractmethod

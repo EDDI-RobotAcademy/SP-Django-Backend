@@ -27,7 +27,7 @@ class TravelRepositoryImpl(TravelRepository):
         return Travel.objects.all()
 
     def create(self, travelName, travelPrice, travelContent,
-                     travelLocation, travelProperty, travelImage):
+                     travelProperty, travelImage):
         uploadDirectory = os.path.join(
             settings.BASE_DIR,
             '../../../../SP-Vue-Frontend/HojoonLee/potato/src/assets/images/uploadImages'
@@ -44,7 +44,7 @@ class TravelRepositoryImpl(TravelRepository):
 
         travel = Travel(
             travelName=travelName,
-            travelLocation=travelLocation,
+            # travelLocation=travelLocation,
             travelPrice=travelPrice,
             travelContent=travelContent,
             travelProperty=travelProperty,

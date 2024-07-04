@@ -23,17 +23,17 @@ class TravelView(viewsets.ViewSet):
 
             travelImage = request.FILES.get('travelImage')
             travelName = data.get('travelName')
-            travelLocation = data.get('travelLocation')
+            # travelLocation = data.get('travelLocation')
             travelProperty = data.get('travelProperty')
             travelContent = data.get('travelContent')
             travelPrice = data.get('travelPrice')
 
 
-            if not all([travelName, travelPrice, travelContent, travelLocation, travelProperty, travelImage]):
+            if not all([travelName, travelPrice, travelContent, travelProperty, travelImage]):
                 return Response({ 'error': '모든 내용을 채워주세요!' },
                                 status=status.HTTP_400_BAD_REQUEST)
 
-            self.travelService.createTravel(travelName, travelPrice, travelLocation,
+            self.travelService.createTravel(travelName, travelPrice,
                                               travelProperty, travelContent, travelImage)
 
             serializer = TravelSerializer(data=request.data)
