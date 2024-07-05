@@ -8,5 +8,5 @@ class TravelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Travel
         fields = ['travelId', 'travelName', 'travelPrice',
-                'travelLocation', 'travelProperty', 'travelContent', 'travelImage']
+                 'travelProperty', 'travelContent', 'travelImage']
 

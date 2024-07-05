@@ -26,11 +26,11 @@ class TravelRepositoryImpl(TravelRepository):
     def list(self):
         return Travel.objects.all()
 
-    def create(self, travelName, travelPrice, travelContent,
-                     travelProperty, travelImage):
+    def create(self, travelName, travelPrice,
+                     travelProperty, travelContent, travelImage):
         uploadDirectory = os.path.join(
             settings.BASE_DIR,
-            '../../../../SP-Vue-Frontend/HojoonLee/potato/src/assets/images/uploadImages'
+            '../../../../SP-Vue-Frontend/potato/src/assets/images/uploadImages'
         )
         if not os.path.exists(uploadDirectory):
             os.makedirs(uploadDirectory)
