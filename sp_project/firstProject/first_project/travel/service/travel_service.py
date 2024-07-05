@@ -7,8 +7,8 @@ class TravelService(ABC):
         pass
 
     @abstractmethod
-    def createTravel(self, travelName, travelPrice, travelContent,
-                     travelProperty, travelImage):
+    def createTravel(self, travelName, travelPrice, travelProperty,
+                     travelContent, travelImage):
         pass
 
     @abstractmethod

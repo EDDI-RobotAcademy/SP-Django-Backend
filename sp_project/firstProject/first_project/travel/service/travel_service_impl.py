@@ -21,11 +21,11 @@ class TravelServiceImpl(TravelService):
     def list(self):
         return self.__travelRepository.list()
 
-    def createTravel(self, travelName, travelPrice, travelContent,
-                     travelProperty, travelImage):
+    def createTravel(self, travelName, travelPrice,
+                     travelProperty, travelContent, travelImage):
 
-        return self.__travelRepository.create(travelName, travelPrice, travelContent,
-                     travelProperty, travelImage)
+        return self.__travelRepository.create(travelName, travelPrice,
+                     travelProperty, travelContent, travelImage)
 
     def readTravel(self, travelId):
         return self.__travelRepository.findByTravelId(travelId)
