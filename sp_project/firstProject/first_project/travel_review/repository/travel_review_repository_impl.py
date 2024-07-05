@@ -49,7 +49,7 @@ class TravelReviewRepositoryImpl(TravelReviewRepository):
         return TravelReview.objects.get(reviewId=travelReviewId)
 
     def deleteByTravelReviewId(self, travelReviewId):
-        travel_review = TravelReview.objects.get(boardId=travelReviewId)
+        travel_review = TravelReview.objects.get(reviewId=travelReviewId)
         travel_review.delete()
 
     def update(self, travel_review, travelReviewData):
