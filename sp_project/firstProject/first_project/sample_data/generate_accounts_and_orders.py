@@ -23,6 +23,22 @@ def create_account(login_type_id, role_type_id, nickname, email):
     Profile.objects.create(id=account.id, nickname=unique_nickname, email=email, account_id=account.id)
     return account.id
 
+def create_random_order(account_id):
+    try:
+        with transaction.atomic():
+            order = TravelOrders.objects.create(account_id=account_id, status=TravelOrdersStatus.PENDING)
+
+            travel = random.choice(travels) # 여행지 중 random 선택 (객체임)
+            price = travel.travelPrice # travel entity의 travelPrice 접근
+
+            TravelOrdersItem.objects.create(
+                orders=order,
+                travel=travel,
+                price=price,
+            )
+    except Exception as e:
+        print(f"Error creating order for account {account_id}: {e}")
+
 if len(account_ids) < 7 :
     print(f"account_ids : {account_ids}")
     for i in range(len(account_ids), 7):
@@ -33,6 +49,6 @@ if len(account_ids) < 7 :
 
 for _ in range(100):
     account_id = random.choice(account_ids) # 랜덤으로 account_ids 중 하나의 계정을 뽑음
-
+    create_random_order(account_id)  # 선택한 계정에 대해 주문을 작성
 
 print("sample data generation completed")
