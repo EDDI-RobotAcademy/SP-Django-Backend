@@ -24,3 +24,8 @@ class TravelOrdersRepositoryImpl(TravelOrdersRepository):
 
     def findById(self, orderId):
         return TravelOrders.objects.get(id=orderId)
+
+    def findOrderByAccountId(self, accountId):
+        return TravelOrders.objects.filter(account_id=accountId)
+        #get(account_id=accountId) # __str__에 선언 된게 반환 됨
+        # [<TravelOrders: TravelOrders 1 by TravelAccount -> id: 1, loginType: KAKAO, roleType: NORMAL>

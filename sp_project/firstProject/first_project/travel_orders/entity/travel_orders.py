@@ -15,7 +15,7 @@ class TravelOrders(models.Model):
     created_data = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f"TravelOrders {self.id} by {self.account}"
+        return f"{self.id}" # TravelOrders : {self.id} by {self.account}"
 
     class Meta:
         db_table = 'travel_orders'
