@@ -66,4 +66,7 @@ class TravelOrdersView(viewsets.ViewSet):
         # cartList를 찾는 방법 : 현재 cart에는 cart와 cartitem table로 구성
         # 먼저 누구의 카트인지를 찾고, 거기에 있는 장바구니들을 반환하면 됨
         travelOrders = self.travelOrderService.travelOrderList(accountId)
-        return Response(travelOrders, status=status.HTTP_200_OK)
+
+        # value(orderId)만 뽑아서 list화 시키기
+        travelOrdersList = list(travelOrders.values())
+        return Response(travelOrdersList , status=status.HTTP_200_OK)
