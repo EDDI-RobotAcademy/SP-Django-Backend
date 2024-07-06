@@ -9,3 +9,7 @@ class TravelOrderService(ABC):
     @abstractmethod
     def readOrderDetails(self, orderId, accountId):
         pass
+
+    @abstractmethod
+    def travelOrderList(self, accountId):
+        pass

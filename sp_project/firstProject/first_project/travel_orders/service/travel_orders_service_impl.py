@@ -40,7 +40,7 @@ class TravelOrderServiceImpl(TravelOrderService):
 
     def readOrderDetails(self, orderId, accountId):
         try:
-            order = self.__travelOrdersRepository.findById(orderId) # todo
+            order = self.__travelOrdersRepository.findById(orderId)
             print(f"travel order : {order}")
             # print(f"order.account.id: {order.account.id}, accountId: {accountId}")
             # print(f"type(order.account.id): {type(order.account.id)}, type(accountId): {type(accountId)}")
@@ -50,7 +50,7 @@ class TravelOrderServiceImpl(TravelOrderService):
             print("check order object <- readOrderDetails()")
 
             # OrdersItemRepositoryImpl을 통해 해당 주문의 상세 항목들을 조회합니다.
-            ordersItemList = self.__travelOrdersItemRepository.findAllByOrder(order) # todo
+            ordersItemList = self.__travelOrdersItemRepository.findAllByOrder(order)
 
             totalPrice = sum(ordersItem.total_price() for ordersItem in ordersItemList)
 
@@ -81,3 +81,8 @@ class TravelOrderServiceImpl(TravelOrderService):
         except Exception as e:
             print('Error reading order details:', e)
             raise e
+
+    def travelOrderList(self, accountId):
+        ordersList = self.__travelOrdersRepository.findOrderByAccountId(accountId)
+        print(f"ordersList : {ordersList}")
+        return ordersList

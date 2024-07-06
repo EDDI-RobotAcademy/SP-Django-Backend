@@ -49,3 +49,21 @@ class TravelOrdersView(viewsets.ViewSet):
         except Exception as e:
             print('주문 상세 내역 조회 중 문제 발생:', e)
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def orderList(self, request):
+        data = request.data
+        print(f"data : {data}")
+        userToken = data.get('userToken')
+
+        if not userToken:
+            return Response({'error': 'User token is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # redis를 통해 account Id 할당
+        accountId = self.redisService.getValueByKey(userToken)
+        if not accountId:
+            return Response({'error': 'Invalid user token'}, status=status.HTTP_400_BAD_REQUEST)
+        print(f"accountId : {accountId}")
+        # cartList를 찾는 방법 : 현재 cart에는 cart와 cartitem table로 구성
+        # 먼저 누구의 카트인지를 찾고, 거기에 있는 장바구니들을 반환하면 됨
+        travelOrders = self.travelOrderService.travelOrderList(accountId)
+        return Response(travelOrders, status=status.HTTP_200_OK)
