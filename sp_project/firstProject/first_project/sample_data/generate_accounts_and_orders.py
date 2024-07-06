@@ -1,0 +1,38 @@
+import random
+
+from django.db import transaction
+from travel_account.entity.travel_account import TravelAccount
+from travel_orders.entity.travel_orders_item import TravelOrdersItem
+from travel.entity.models import Travel
+from travel_account.entity.profile import Profile
+from travel_orders.entity.travel_orders import TravelOrders
+from travel_orders.entity.travel_orders_status import TravelOrdersStatus
+
+travels = list(Travel.objects.all())
+account_ids = list(TravelAccount.objects.values_list('id', flat=True)) # 어떤식으로 나오는지 찍어보기 values_list가 뭔지?
+
+def create_account(login_type_id, role_type_id, nickname, email):
+    unique_nickname = nickname
+    count = 1
+    # 이미 있는 닉네임이라면, 닉네임 뒤에 count 추가
+    while Profile.objects.filter(nickname=unique_nickname).exists():
+        unique_nickname = f"{nickname}_{count}"
+        count += 1
+    # 랜덤 계정 생성 (같은 accountID에 대한 account, profile)
+    account = TravelAccount.objects.create(loginType_id=login_type_id, roleType_id=role_type_id)
+    Profile.objects.create(id=account.id, nickname=unique_nickname, email=email, account_id=account.id)
+    return account.id
+
+if len(account_ids) < 7 :
+    print(f"account_ids : {account_ids}")
+    for i in range(len(account_ids), 7):
+        nickname = f"User{i + 1}"
+        email = f"user{i+1}@example.com"
+        account_id = create_account(1,1,nickname,email)
+        account_ids.append(account_id)
+
+for _ in range(100):
+    account_id = random.choice(account_ids) # 랜덤으로 account_ids 중 하나의 계정을 뽑음
+
+
+print("sample data generation completed")
