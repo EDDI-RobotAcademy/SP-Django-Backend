@@ -8,5 +8,5 @@ router.register(r'survey', SurveyView, basename='survey')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('register', SurveyView.as_view({'post': 'create'}), name='survey-register'),
+    path('register', SurveyView.as_view({'post': 'register'}), name='survey-register'),
 ]
