@@ -1,6 +1,8 @@
 import random
 
 from django.db import transaction
+
+from survey.entity.models import Survey
 from travel_account.entity.travel_account import TravelAccount
 from travel_orders.entity.travel_orders_item import TravelOrdersItem
 from travel.entity.models import Travel
@@ -39,13 +41,32 @@ def create_random_order(account_id):
     except Exception as e:
         print(f"Error creating order for account {account_id}: {e}")
 
-if len(account_ids) < 7 :
+def create_random_survey(account_id):
+    try:
+        with transaction.atomic():
+            Survey.objects.create(
+                id=account_id,
+                age=random.randint(10,100),
+                gender=random.randint(1,2),
+                travelConcept=random.randint(1,6),
+                travelCompanion=random.randint(1,5),
+                snsFrequency=random.randint(1,4),
+                photoFrequency=random.randint(1,4),
+                travelBudget=random.randint(1,5)
+            )
+    except Exception as e:
+        print(f"Error creating order for account {account_id}: {e}")
+
+if len(account_ids) < 12 :
     print(f"account_ids : {account_ids}")
-    for i in range(len(account_ids), 7):
+    for i in range(len(account_ids), 12):
         nickname = f"User{i + 1}"
         email = f"user{i+1}@example.com"
         account_id = create_account(1,1,nickname,email)
         account_ids.append(account_id)
+
+        # 각 계정 생성하자마자 설문조사 진행 할 것이므로 여기서 설문조사 함수 실행
+        create_random_survey(account_id)
 
 for _ in range(100):
     account_id = random.choice(account_ids) # 랜덤으로 account_ids 중 하나의 계정을 뽑음
