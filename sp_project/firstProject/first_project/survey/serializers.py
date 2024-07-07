@@ -6,5 +6,5 @@ from survey.entity.models import Survey
 class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey
-        fields = ['user', 'age', 'travelConcept', 'travelCompanion', 'snsFrequency',
+        fields = [ 'age', 'gender', 'travelConcept', 'travelCompanion', 'snsFrequency',
                   'photoFrequency', 'travelBudget']
