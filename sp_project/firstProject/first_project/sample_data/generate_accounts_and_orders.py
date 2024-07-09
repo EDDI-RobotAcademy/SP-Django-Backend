@@ -15,7 +15,7 @@ travels = list(Travel.objects.all())
 account_ids = list(TravelAccount.objects.values_list('id', flat=True)) # 어떤식으로 나오는지 찍어보기 values_list가 뭔지?
 # 랜덤 날짜를 위함
 start_date = datetime(2020, 1, 1)
-end_date = datetime(2023, 12, 31)
+end_date = datetime(2024, 6, 31)
 last_date = start_date
 # 랜덤 날짜 생성기
 def random_date(start, end):
@@ -26,27 +26,21 @@ def random_date(start, end):
 
 # DB에 오름차순 날짜로 저장하는 함수
 def create_ordered_dates(account_id):
-    # order_by 실제로는 안 좋을듯 할 때마다 정렬 해야하므로 > 호출할 때 마다 자원이나 연산이 발생
-    # 근데 지금은 이거 제외한 방법이 table을 meta 부분을 고쳐야 하므로 일단 패스
-    # 원랜 생성일자 순으로 정렬해서 최근거 가져오려했는데, datetime은 order_by가 안돼서 id로 했음
     try:
-        latest_record = TravelOrders.objects.filter(account_id=account_id).order_by('-created_date')
-        print(f"latest_record : {latest_record}")
-        #print(f"account {account_id}'s latest_record : {latest_record_list.last().values}")
-        # for latest_record in latest_record_list:
-        #     print(f"latest_record : {latest_record.created_date}")
-        # account 77's latest_record : {'created_date': datetime.datetime(2023, 9, 12, 4, 9, 26, tzinfo=datetime.timezone.utc)}
-        
-        # dict 중 value만 뽑고 str화 시키기?
-        # latest_record = latest_record_list.last().values # 최근 주문한 create_date 정보 가져오기
-        # latest_record = ''.join(latest_record)
-        #latest_record = latest_record.replace(tzinfo=None) # offset error 방지를 위해 timezone 없애기
+        # 해당 account_id의 최근 주문 내역 가져오기
+        latest_record = TravelOrders.objects.filter(account_id=account_id).order_by('-created_date').first()
+        # 주문 내역 중 create_date 정보만 가져오기
+        print(f"latest_record : {latest_record.created_date}")
+        latest_record = latest_record.created_date
+        # offset error 방지를 위해 timezone 없애기
+        latest_record = latest_record.replace(tzinfo=None)
+
+    # 해당 account id에 가져올게 없다면(주문을 한 번도 안 한 상태) start date로 넣기
     except:
-        print("hi")
         latest_record = start_date
     new_date = random_date(latest_record, end_date)
     # last_date = new_date
-    # print(new_date)
+    # print(f"new_date : {new_date}")
     return new_date
 
 def create_account(login_type_id, role_type_id, nickname, email):
