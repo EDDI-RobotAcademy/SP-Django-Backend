@@ -1,4 +1,5 @@
 import random
+from datetime import datetime, timedelta
 
 from django.db import transaction
 
@@ -12,6 +13,35 @@ from travel_orders.entity.travel_orders_status import TravelOrdersStatus
 
 travels = list(Travel.objects.all())
 account_ids = list(TravelAccount.objects.values_list('id', flat=True)) # 어떤식으로 나오는지 찍어보기 values_list가 뭔지?
+# 랜덤 날짜를 위함
+start_date = datetime(2020, 1, 1)
+end_date = datetime(2024, 6, 31)
+last_date = start_date
+# 랜덤 날짜 생성기
+def random_date(start, end):
+    delta = end - start
+    int_delta = delta.days * 24 * 60 * 60 + delta.seconds
+    random_second = random.randrange(int_delta)
+    return start + timedelta(seconds=random_second)
+
+# DB에 오름차순 날짜로 저장하는 함수
+def create_ordered_dates(account_id):
+    try:
+        # 해당 account_id의 최근 주문 내역 가져오기
+        latest_record = TravelOrders.objects.filter(account_id=account_id).order_by('-created_date').first()
+        # 주문 내역 중 create_date 정보만 가져오기
+        print(f"latest_record : {latest_record.created_date}")
+        latest_record = latest_record.created_date
+        # offset error 방지를 위해 timezone 없애기
+        latest_record = latest_record.replace(tzinfo=None)
+
+    # 해당 account id에 가져올게 없다면(주문을 한 번도 안 한 상태) start date로 넣기
+    except:
+        latest_record = start_date
+    new_date = random_date(latest_record, end_date)
+    # last_date = new_date
+    # print(f"new_date : {new_date}")
+    return new_date
 
 def create_account(login_type_id, role_type_id, nickname, email):
     unique_nickname = nickname
@@ -28,7 +58,10 @@ def create_account(login_type_id, role_type_id, nickname, email):
 def create_random_order(account_id):
     try:
         with transaction.atomic():
-            order = TravelOrders.objects.create(account_id=account_id, status=TravelOrdersStatus.PENDING)
+            random_created_at = create_ordered_dates(account_id)
+            # print(random_created_at)
+            order = TravelOrders.objects.create(
+                account_id=account_id, status=TravelOrdersStatus.PENDING, created_date=random_created_at)
 
             travel = random.choice(travels) # 여행지 중 random 선택 (객체임)
             price = travel.travelPrice # travel entity의 travelPrice 접근
@@ -57,9 +90,9 @@ def create_random_survey(account_id):
     except Exception as e:
         print(f"Error creating order for account {account_id}: {e}")
 
-if len(account_ids) < 12 :
+if len(account_ids) < 35 :
     print(f"account_ids : {account_ids}")
-    for i in range(len(account_ids), 12):
+    for i in range(len(account_ids), 35):
         nickname = f"User{i + 1}"
         email = f"user{i+1}@example.com"
         account_id = create_account(1,1,nickname,email)
