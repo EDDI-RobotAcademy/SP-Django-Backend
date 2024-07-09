@@ -10,9 +10,7 @@ class TravelOrders(models.Model):
     id = models.AutoField(primary_key=True)
     account = models.ForeignKey(TravelAccount, on_delete=models.CASCADE, related_name='travel_orders')
     status = models.CharField(max_length=10, choices=TravelOrdersStatus.choices, default=TravelOrdersStatus.PENDING)
-    # 주문 일자
-    # created_date로 나중에 수정하기
-    created_data = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField()
 
     def __str__(self):
         return f"{self.id}" # TravelOrders : {self.id} by {self.account}"
