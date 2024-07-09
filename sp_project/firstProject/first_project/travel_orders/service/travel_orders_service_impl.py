@@ -23,7 +23,8 @@ class TravelOrderServiceImpl(TravelOrderService):
     def createOrder(self, accountId, orderItemList):
         try:
             # travel_orders객체 생성
-            travel_orders = self.__travelOrdersRepository.create(accountId, TravelOrdersStatus.PENDING) # 확인이 안된 정보 Pending
+            # print(f"registerDate: {orderItemList[-1]['registerDate']}") # 날짜 뽑기
+            travel_orders = self.__travelOrdersRepository.create(accountId, TravelOrdersStatus.PENDING, orderItemList[-1]['registerDate']) # 확인이 안된 정보 Pending
             for item in orderItemList:
                 print(f"order item : {item}")
                 # 주문 정보가 담긴 ordersItem 객체 생성

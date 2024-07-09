@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class TravelOrdersRepository(ABC):
 
     @abstractmethod
-    def create(self, accountId, status):
+    def create(self, accountId, status, date):
         pass
 
     @abstractmethod
