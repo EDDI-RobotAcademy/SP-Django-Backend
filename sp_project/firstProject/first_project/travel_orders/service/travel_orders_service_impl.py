@@ -53,25 +53,19 @@ class TravelOrderServiceImpl(TravelOrderService):
             # OrdersItemRepositoryImpl을 통해 해당 주문의 상세 항목들을 조회합니다.
             ordersItemList = self.__travelOrdersItemRepository.findAllByOrder(order)
 
-            totalPrice = sum(ordersItem.total_price() for ordersItem in ordersItemList)
-
             # 조회된 주문 상세 내역을 필요한 형식으로 반환할 수 있도록 구성합니다.
             order_details = {
                 'order': {
                     'id': order.id,
                     'status': order.status,
-                    'created_data': order.created_data,
-                    'total_price': totalPrice,
-                    # 'shipping_address': order.shipping_address,
-                    # 'billing_address': order.billing_address,
+                    'created_date': order.created_date,
+
                 },
                 'order_items': [
                     {
                         'travel_id': item.travel_id,
                         'travel_name': self.__travelRepository.findByTravelId(item.travel_id).travelName,
-                        #'quantity': item.quantity,
                         'price': item.price,
-                        #'total_price': item.total_price(),
                     }
                     for item in ordersItemList
                 ]
