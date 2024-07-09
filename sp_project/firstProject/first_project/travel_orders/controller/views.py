@@ -23,7 +23,6 @@ class TravelOrdersView(viewsets.ViewSet):
 
             # 고객 id와 고객이 산 물품들을 가지고 주문 번호를 만든다.
             orderId = self.travelOrderService.createOrder(accountId, orderItemList)
-            print(f"orderId : {orderId}")
             return Response(orderId, status=status.HTTP_200_OK) # 돈이 쓰이는 과정이라 유저 정보 항상 확인
 
         except Exception as e:

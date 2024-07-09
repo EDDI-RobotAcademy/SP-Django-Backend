@@ -16,8 +16,8 @@ class TravelOrdersRepositoryImpl(TravelOrdersRepository):
             cls.__instance = cls()
         return cls.__instance
 
-    def create(self, accountId, status):
-        orders = TravelOrders(account_id=accountId, status=status)
+    def create(self, accountId, status, date):
+        orders = TravelOrders(account_id=accountId, status=status, created_date=date)
         orders.save()
 
         return orders
